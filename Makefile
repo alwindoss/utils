@@ -6,12 +6,17 @@ GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
 GOGET=$(GOCMD) get
 BINARY_LOC=bin
-BINARY_NAME=<<AppName>>
+BINARY_NAME=kardia
 BINARY_UNIX=$(BINARY_NAME)_unix
+VERSION=0.0.1
 
 all: build
-package: build
-	docker build -t alwindoss/$(BINARY_NAME):latest .
+docker:
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 $(GOBUILD) -o ./$(BINARY_LOC)/$(BINARY_NAME) -v ./cmd/$(BINARY_NAME)/...
+package:
+	docker build -t alwindoss/$(BINARY_NAME):$(VERSION) .
+publish:
+	docker push alwindoss/$(BINARY_NAME):$(VERSION)
 setup:
 	$(GOGET) -v ./...
 build: 
