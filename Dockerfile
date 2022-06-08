@@ -4,8 +4,8 @@ COPY . .
 RUN make setup
 RUN make docker
 
-FROM alpine:latest
-RUN apk --no-cache add ca-certificates
+FROM busybox:latest
+#RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 COPY --from=builder /go/src/app/bin/<<APPNAME>> .
 CMD [ "./<<APPNAME>>" ]
