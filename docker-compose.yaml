@@ -20,7 +20,16 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./db-data/:/var/lib/postgresql/data
+      - ./db-data/:/var/lib/postgresql/dat
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=alwindoss84@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=password
+      - PGADMIN_DEFAULT_PASSWORD_FILE=pwdfile.txt
+    ports:
+      - 8081:80
   adminer:
     image: adminer
     restart: always
