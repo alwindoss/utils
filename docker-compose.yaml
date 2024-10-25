@@ -34,6 +34,12 @@ services:
       # - PGADMIN_DEFAULT_PASSWORD_FILE=pwdfile.txt
     ports:
       - 8081:80
+  valkey:
+    image: 'bitnami/valkey:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      - app-tier
   kafka:
     image: 'bitnami/kafka:latest'
     networks:
